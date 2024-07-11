@@ -1,33 +1,20 @@
 <template>
-  <div class="container" ref="container">
-    <div id="gjs"></div>
+  <div ref="canvas">
+    <h1>Hello world!</h1>
   </div>
 </template>
 
-<script>
-import { ref, onMounted } from 'vue';
-import grapesjs from "grapesjs";
-import "grapesjs/dist/css/grapes.min.css";
-import "grapesjs-mjml";
+<script setup>
+import { useGrapes } from 'vue-grapesjs-composables'
+import 'vue-grapesjs-composables/css/vue-grapes.css'
+import {ref} from "vue";
 
-export default {
-  name: "HelloWorld",
-  setup() {
-    const msg = ref('Welcome to Your Vue.js App');
-    const container = ref(null);
+// Use ref to determine container for the canvas
+const canvas = ref(null)
 
-    onMounted(() => {
-      grapesjs.init({
-        container: '#gjs',
-        plugins: [ 'gjs-mjml' ]
-      });
-    });
-
-    return { msg, container };
-  }
-};
+// Pass GrapesJS configuration object to useGrapes
+const grapes = useGrapes({
+  container: canvas,
+  fromElement: true,
+})
 </script>
-
-<style scoped src="grapesjs/dist/css/grapes.min.css">
-  /* global styles */
-</style>

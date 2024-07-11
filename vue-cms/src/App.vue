@@ -1,18 +1,14 @@
 <template>
   <router-view >
-    <Home/>
-    <HelloWord/>
-  </router-view> 
+  </router-view>
 </template>
 
 <script lang="ts">
-import Home from './views/Home.vue'
-import HelloWord from './components/HelloWord.vue'
+import Home from "@/views/Home.vue";
 
 export default {
   components: {
-    Home,
-    HelloWord
+    Home
   }
 }
 
