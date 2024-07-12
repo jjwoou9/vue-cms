@@ -1,7 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import TestComponent from "../components/TestComponent.vue";
-import Editor2 from "../components/Editor2.vue";
 import Grapes from "../views/Grapes.vue";
 import Test from "../views/Test.vue";
 import Compose from "../views/Compose.vue";

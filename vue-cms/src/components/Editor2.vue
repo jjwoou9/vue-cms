@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted} from 'vue'
+import { onMounted }  from 'vue'
 import 'grapesjs/dist/css/grapes.min.css';
 import grapesjs from 'grapesjs';
 
@@ -29,10 +29,6 @@ import pluginCustomCode from 'grapesjs-custom-code';
 import pluginMjml from 'grapesjs-mjml';
 import pluginNavbar from 'grapesjs-navbar';
 import pluginParserPostcss from 'grapesjs-parser-postcss';
-import pluginPresetWebpage from 'grapesjs-preset-webpage';
-import pluginStyleBg from 'grapesjs-style-bg';
-import pluginTooltip from 'grapesjs-tooltip';
-import pluginTuiImageEditor from 'grapesjs-tui-image-editor';
 type EditorType = any; // Replace 'any' with actual Editor Class/Type.
 
 onMounted(() => {
