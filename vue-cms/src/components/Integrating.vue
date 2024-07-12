@@ -7,6 +7,7 @@ import { onMounted } from 'vue';
 import grapesjs from 'grapesjs';
 import 'grapesjs-preset-webpage/dist/index.js';
 import '@/grapes.min.js';
+import '@/assets/grapes.min.css';
 import 'grapesjs/dist/css/grapes.min.css';
 // GrapesJS 플러그인들을 임포트합니다.
 import pluginBlocksBasic from 'grapesjs-blocks-basic';

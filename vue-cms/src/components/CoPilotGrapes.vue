@@ -60,32 +60,7 @@ export default defineComponent({
             'grapesjs-tui-image-editor': {},
             // 각 플러그인에 대한 추가적인 옵션 설정
           },
-          blockManager: {
-            appendTo: '#blocks',
-            blocks: [
-              {
-                id: 'section', // id is mandatory
-                label: '<b>Section</b>', // You can use HTML/SVG inside labels
-                attributes: { class: 'gjs-block-section' },
-                content: `<section>
-                <h1>This is a simple title</h1>
-                <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
-              </section>`,
-              },
-              {
-                id: 'text',
-                label: 'Text',
-                content: '<div data-gjs-type="text">Insert your text here</div>',
-              },
-              {
-                id: 'image',
-                label: 'Image',
-                select: true,
-                content: { type: 'image' },
-                activate: true,
-              },
-            ],
-          },
+
 
         });
         // 여기에 추가적인 GrapesJS 초기화 코드를 작성합니다.

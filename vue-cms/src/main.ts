@@ -4,6 +4,7 @@ import { createI18n } from 'vue-i18n'
 import router from './router'
 import App from './App.vue'
 // import './assets/index.css'
+// import '@/assets/main.css';
 
 const app = createApp(App)
 const pinia = createPinia()

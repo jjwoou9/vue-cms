@@ -37,7 +37,17 @@ onMounted(() => {
     height: '300px',
     width: 'auto',
     // Disable the storage manager for the moment
-    storageManager: false,
+    storageManager: {
+      type: 'local', // Type of the storage, available: 'local' | 'remote'
+      autosave: true, // Store data automatically
+      autoload: true, // Autoload stored data on init
+      stepsBeforeSave: 1, // If autosave enabled, indicates how many changes are necessary before store method is triggered
+      options: {
+        local: { // Options for the `local` type
+          key: 'gjsProject', // The key for the local storage
+        },
+      }
+    },
     // Avoid any default panel
     blockManager: {
       appendTo: '#blocks',
@@ -266,14 +276,14 @@ onMounted(() => {
     getLayersEl(row: Element | null): Element | null {
       return row ? row.querySelector('.layers-container') : null;
     },
-    run(editor: EditorType, sender: SenderType) {
+    run(editor: EditorType) {
       const rowEl = this.getRowEl(editor);
       const lmEl = this.getLayersEl(rowEl);
       if (lmEl) {
         lmEl.style.display = '';
       }
     },
-    stop(editor: EditorType, sender: SenderType) {
+    stop(editor: EditorType) {
       const rowEl = this.getRowEl(editor);
       const lmEl = this.getLayersEl(rowEl);
       if (lmEl) {
@@ -289,14 +299,14 @@ onMounted(() => {
     getStyleEl(row: Element | null): Element | null {
       return row ? row.querySelector('.styles-container') : null;
     },
-    run(editor: EditorType, sender: SenderType) {
+    run(editor: EditorType) {
       const rowEl = this.getRowEl(editor);
       const smEl = this.getStyleEl(rowEl);
       if (smEl) {
         smEl.style.display = '';
       }
     },
-    stop(editor: EditorType, sender: SenderType) {
+    stop(editor: EditorType) {
       const rowEl = this.getRowEl(editor);
       const smEl = this.getStyleEl(rowEl);
       if (smEl) {
@@ -311,14 +321,14 @@ onMounted(() => {
       return row ? row.querySelector('.traits-container') : null;
     },
 
-    run(editor: EditorType, sender: SenderType) {
+    run(editor: EditorType) {
       const traitsEl = this.getTraitsEl(editor);
       if (traitsEl) {
         traitsEl.style.display = '';
       }
     },
 
-    stop(editor: EditorType, sender: SenderType) {
+    stop(editor: EditorType) {
       const traitsEl = this.getTraitsEl(editor);
       if (traitsEl) {
         traitsEl.style.display = 'none';
@@ -360,7 +370,7 @@ onMounted(() => {
   width: 100%;
   display: flex;
   position: initial;
-  justify-content: center;
+/* justify-content: center; */
   justify-content: space-between;
 }
 
@@ -393,4 +403,10 @@ onMounted(() => {
 .panel__devices {
   position: initial;
 }
+
+#gjs {
+  border: none;
+}
+/* Theming */
+
 </style>
