@@ -125,6 +125,22 @@ onMounted(() => {
           }
           ],
         },
+        {
+          id: 'panel-devices',
+          el: '.panel__devices',
+          buttons: [{
+            id: 'device-desktop',
+            label: 'D',
+            command: 'set-device-desktop',
+            active: true,
+            togglable: false,
+          }, {
+            id: 'device-mobile',
+            label: 'M',
+            command: 'set-device-mobile',
+            togglable: false,
+          }],
+        }
       ]
     },
     selectorManager: {
@@ -308,6 +324,15 @@ onMounted(() => {
         traitsEl.style.display = 'none';
       }
     },
+  });
+
+
+  // Commands
+  editor.Commands.add('set-device-desktop', {
+    run: (editor: EditorType) => editor.setDevice('Desktop')
+  });
+  editor.Commands.add('set-device-mobile', {
+    run: (editor: EditorType) => editor.setDevice('Mobile')
   });
 
 })
