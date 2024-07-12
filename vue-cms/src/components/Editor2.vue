@@ -210,10 +210,20 @@ onMounted(() => {
       appendTo: '.traits-container',
     },
     plugins: [
-      pluginBlocksBasic
+      pluginBlocksBasic,
+      pluginComponentCountdown,
+      pluginCustomCode,
+      pluginMjml,
+      pluginNavbar,
+      pluginParserPostcss,
+      // pluginPresetWebpage,
+      // pluginStyleBg,
+      // pluginTooltip,
+      // pluginTuiImageEditor,
     ],
     pluginsOpts: {
       'grapesjs-blocks-basic': {},
+      'grapesjs-component-countdown': {},
     }
   });
 
