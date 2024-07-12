@@ -12,6 +12,7 @@
     <div class="panel__right">
       <div class="layers-container"></div>
       <div class="styles-container"></div>
+      <div class="traits-container"></div>
     </div>
   </div>
   <div id="blocks"></div>
@@ -115,8 +116,15 @@ onMounted(() => {
             label: 'Styles',
             command: 'show-styles',
             togglable: false,
-          }],
-        }
+          }, {
+            id: 'show-traits',
+            active: true,
+            label: 'Traits',
+            command: 'show-traits',
+            togglable: false,
+          }
+          ],
+        },
       ]
     },
     selectorManager: {
@@ -162,6 +170,9 @@ onMounted(() => {
           }
         ]
       }]
+    },
+    traitManager: {
+      appendTo: '.traits-container',
     },
   });
 
@@ -274,6 +285,27 @@ onMounted(() => {
       const smEl = this.getStyleEl(rowEl);
       if (smEl) {
         smEl.style.display = 'none';
+      }
+    },
+  });
+
+  editor.Commands.add('show-traits', {
+    getTraitsEl(editor: EditorType): Element | null {
+      const row = editor.getContainer().closest('.editor-row');
+      return row ? row.querySelector('.traits-container') : null;
+    },
+
+    run(editor: EditorType, sender: SenderType) {
+      const traitsEl = this.getTraitsEl(editor);
+      if (traitsEl) {
+        traitsEl.style.display = '';
+      }
+    },
+
+    stop(editor: EditorType, sender: SenderType) {
+      const traitsEl = this.getTraitsEl(editor);
+      if (traitsEl) {
+        traitsEl.style.display = 'none';
       }
     },
   });
