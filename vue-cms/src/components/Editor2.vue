@@ -4,22 +4,26 @@
     <div class="panel__devices"></div>
     <div class="panel__switcher"></div>
   </div>
+
   <div class="editor-row">
     <div class="editor-canvas">
       <div id="gjs">...</div>
     </div>
     <div class="panel__right">
       <div class="layers-container"></div>
+      <div class="styles-container"></div>
     </div>
   </div>
   <div id="blocks"></div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import {onMounted} from 'vue'
 import 'grapesjs/dist/css/grapes.min.css';
 import grapesjs from 'grapesjs';
 
+type EditorType = any; // Replace 'any' with actual Editor Class/Type.
+type SenderType = any; // Replace 'any' with actual Sender Class/Type.
 
 onMounted(() => {
   const editor = grapesjs.init({
@@ -40,7 +44,7 @@ onMounted(() => {
         {
           id: 'section', // id is mandatory
           label: '<b>Section</b>', // You can use HTML/SVG inside labels
-          attributes: { class:'gjs-block-section' },
+          attributes: {class: 'gjs-block-section'},
           content: `<section>
           <h1>This is a simple title</h1>
           <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
@@ -56,7 +60,7 @@ onMounted(() => {
           select: true,
           // You can pass components as a JSON instead of a simple HTML string,
           // in this case we also use a defined component type `image`
-          content: { type: 'image' },
+          content: {type: 'image'},
           // This triggers `active` event on dropped components and the `image`
           // reacts by opening the AssetManager
           activate: true,
@@ -78,37 +82,84 @@ onMounted(() => {
     },
     // We define a default panel as a sidebar to contain layers
     panels: {
-      defaults: [{
-        id: 'layers',
-        el: '.panel__right',
-        // Make the panel resizable
-        resizable: {
-          maxDim: 350,
-          minDim: 200,
-          tc: 0, // Top handler
-          cl: 1, // Left handler
-          cr: 0, // Right handler
-          bc: 0, // Bottom handler
-          // Being a flex child we need to change `flex-basis` property
-          // instead of the `width` (default)
-          keyWidth: 'flex-basis',
+      defaults: [
+        {
+          id: 'layers',
+          el: '.panel__right',
+          // Make the panel resizable
+          resizable: {
+            maxDim: 350,
+            minDim: 200,
+            tc: 0, // Top handler
+            cl: 1, // Left handler
+            cr: 0, // Right handler
+            bc: 0, // Bottom handler
+            // Being a flex child we need to change `flex-basis` property
+            // instead of the `width` (default)
+            keyWidth: 'flex-basis',
+          },
         },
-      },
-      {
-        id: 'panel-devices',
-        el: '.panel__devices',
-        buttons: [{
-          id: 'device-desktop',
-          label: 'D',
-          command: 'set-device-desktop',
-          active: true,
-          togglable: false,
-        }, {
-          id: 'device-mobile',
-          label: 'M',
-          command: 'set-device-mobile',
-          togglable: false,
+        {
+          id: 'panel-switcher',
+          el: '.panel__switcher',
+          buttons: [{
+            id: 'show-layers',
+            active: true,
+            label: 'Layers',
+            command: 'show-layers',
+            // Once activated disable the possibility to turn it off
+            togglable: false,
+          }, {
+            id: 'show-style',
+            active: true,
+            label: 'Styles',
+            command: 'show-styles',
+            togglable: false,
+          }],
         }
+      ]
+    },
+    selectorManager: {
+      appendTo: '.styles-container'
+    },
+    styleManager: {
+      appendTo: '.styles-container',
+      sectors: [{
+        name: 'Dimension',
+        open: false,
+        // Use built-in properties
+        buildProps: ['width', 'min-height', 'padding'],
+        // Use `properties` to define/override single property
+        properties: [
+          {
+            // Type of the input,
+            // options: integer | radio | select | color | slider | file | composite | stack
+            type: 'integer',
+            name: 'The width', // Label for the property
+            property: 'width', // CSS property (if buildProps contains it will be extended)
+            units: ['px', '%'], // Units, available only for 'integer' types
+            defaults: 'auto', // Default value
+            min: 0, // Min value, available only for 'integer' types
+          }
+        ]
+      },{
+        name: 'Extra',
+        open: false,
+        buildProps: ['background-color', 'box-shadow', 'custom-prop'],
+        properties: [
+          {
+            id: 'custom-prop',
+            name: 'Custom Label',
+            property: 'font-size',
+            type: 'select',
+            defaults: '32px',
+            // List of options, available only for 'select' and 'radio'  types
+            options: [
+              { value: '12px', name: 'Tiny' },
+              { value: '18px', name: 'Medium' },
+              { value: '32px', name: 'Big' },
+            ],
+          }
         ]
       }]
     },
@@ -120,7 +171,7 @@ onMounted(() => {
     content: {
       tagName: 'div',
       draggable: true,
-      attributes: { 'some-attribute': 'some-value' },
+      attributes: {'some-attribute': 'some-value'},
       components: [
         {
           tagName: 'span',
@@ -139,7 +190,6 @@ onMounted(() => {
     id: 'panel-top',
     el: '.panel__top',
   });
-  editor.Dev
   editor.Panels.addPanel({
     id: 'basic-actions',
     el: '.panel__basic-actions',
@@ -172,7 +222,7 @@ onMounted(() => {
     ],
   });
 
-  editor.on('run:export-template:before', opts => {
+  editor.on('run:export-template:before', (opts: any) => {
     console.log('Before the command run');
     if (0 /* some condition */) {
       opts.abort = 1;
@@ -180,6 +230,54 @@ onMounted(() => {
   });
   editor.on('run:export-template', () => console.log('After the command run'));
   editor.on('abort:export-template', () => console.log('Command aborted'));
+
+// Define commands
+  editor.Commands.add('show-layers', {
+    getRowEl(editor: EditorType): Element | null {
+      return editor.getContainer().closest('.editor-row');
+    },
+    getLayersEl(row: Element | null): Element | null {
+      return row ? row.querySelector('.layers-container') : null;
+    },
+    run(editor: EditorType, sender: SenderType) {
+      const rowEl = this.getRowEl(editor);
+      const lmEl = this.getLayersEl(rowEl);
+      if (lmEl) {
+        lmEl.style.display = '';
+      }
+    },
+    stop(editor: EditorType, sender: SenderType) {
+      const rowEl = this.getRowEl(editor);
+      const lmEl = this.getLayersEl(rowEl);
+      if (lmEl) {
+        lmEl.style.display = 'none';
+      }
+    },
+  });
+
+  editor.Commands.add('show-styles', {
+    getRowEl(editor: EditorType): Element | null {
+      return editor.getContainer().closest('.editor-row');
+    },
+    getStyleEl(row: Element | null): Element | null {
+      return row ? row.querySelector('.styles-container') : null;
+    },
+    run(editor: EditorType, sender: SenderType) {
+      const rowEl = this.getRowEl(editor);
+      const smEl = this.getStyleEl(rowEl);
+      if (smEl) {
+        smEl.style.display = '';
+      }
+    },
+    stop(editor: EditorType, sender: SenderType) {
+      const rowEl = this.getRowEl(editor);
+      const smEl = this.getStyleEl(rowEl);
+      if (smEl) {
+        smEl.style.display = 'none';
+      }
+    },
+  });
+
 })
 
 </script>
@@ -211,6 +309,7 @@ onMounted(() => {
   justify-content: center;
   justify-content: space-between;
 }
+
 .panel__basic-actions {
   position: initial;
 }
@@ -221,6 +320,10 @@ onMounted(() => {
   align-items: stretch;
   flex-wrap: nowrap;
   height: 300px;
+}
+
+.panel__switcher {
+  position: initial;
 }
 
 .editor-canvas {
