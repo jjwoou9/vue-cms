@@ -1,6 +1,8 @@
 <template>
   <div class="panel__top">
     <div class="panel__basic-actions"></div>
+    <div class="panel__devices"></div>
+    <div class="panel__switcher"></div>
   </div>
   <div class="editor-row">
     <div class="editor-canvas">
@@ -64,6 +66,16 @@ onMounted(() => {
     layerManager: {
       appendTo: '.layers-container'
     },
+    deviceManager: {
+      devices: [{
+        name: 'Desktop',
+        width: '', // default size
+      }, {
+        name: 'Mobile',
+        width: '320px', // this value will be used on canvas width
+        widthMedia: '480px', // this value will be used in CSS @media
+      }]
+    },
     // We define a default panel as a sidebar to contain layers
     panels: {
       defaults: [{
@@ -81,8 +93,25 @@ onMounted(() => {
           // instead of the `width` (default)
           keyWidth: 'flex-basis',
         },
+      },
+      {
+        id: 'panel-devices',
+        el: '.panel__devices',
+        buttons: [{
+          id: 'device-desktop',
+          label: 'D',
+          command: 'set-device-desktop',
+          active: true,
+          togglable: false,
+        }, {
+          id: 'device-mobile',
+          label: 'M',
+          command: 'set-device-mobile',
+          togglable: false,
+        }
+        ]
       }]
-    }
+    },
   });
 
   editor.BlockManager.add('blocks', {
@@ -110,6 +139,7 @@ onMounted(() => {
     id: 'panel-top',
     el: '.panel__top',
   });
+  editor.Dev
   editor.Panels.addPanel({
     id: 'basic-actions',
     el: '.panel__basic-actions',
@@ -201,5 +231,9 @@ onMounted(() => {
   flex-basis: 230px;
   position: relative;
   overflow-y: auto;
+}
+
+.panel__devices {
+  position: initial;
 }
 </style>
