@@ -5,8 +5,6 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
 import grapesjs from 'grapesjs';
-import 'grapesjs/dist/css/grapes.min.css';
-import '@/assets/main.css';
 
 export default defineComponent({
   name: 'Editor',

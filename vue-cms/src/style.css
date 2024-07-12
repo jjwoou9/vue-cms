@@ -78,16 +78,3 @@ button:focus-visible {
   }
 }
 
-/* src/style.css */
-/* src/style.css */
-html, body, #app {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-}
-
-#editor {
-  height: 100%;
-  width: 100%;
-}

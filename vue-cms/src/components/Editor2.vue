@@ -334,6 +334,8 @@ onMounted(() => {
   editor.Commands.add('set-device-mobile', {
     run: (editor: EditorType) => editor.setDevice('Mobile')
   });
+  //Device 변경 console
+  editor.on('change:device', () => console.log('Current device: ', editor.getDevice()));
 
 })
 
@@ -352,11 +354,6 @@ onMounted(() => {
   height: 100%;
 }
 
-.gjs-block {
-  width: auto;
-  height: auto;
-  min-height: auto;
-}
 
 .panel__top {
   padding: 0;

@@ -12,3 +12,11 @@ import GptGrapes from "@/components/GptGrapes.vue";
 import GrapesEditor from "@/components/GrapesEditor.vue";
 import Integrating from "@/components/Integrating.vue";
 </script>
+<style >
+.gjs-block {
+  width: auto !important;
+  height: auto !important;
+  min-height: auto !important;
+}
+
+</style>

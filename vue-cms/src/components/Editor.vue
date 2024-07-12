@@ -54,7 +54,6 @@ onMounted(() => {
 </script>
 
 <style>
-@import 'grapesjs/dist/css/grapes.min.css';
 
 .gjs-editor-wrapper {
   height: 100vh;
