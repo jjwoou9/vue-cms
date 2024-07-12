@@ -23,8 +23,17 @@ import {onMounted} from 'vue'
 import 'grapesjs/dist/css/grapes.min.css';
 import grapesjs from 'grapesjs';
 
+import pluginBlocksBasic from 'grapesjs-blocks-basic';
+import pluginComponentCountdown from 'grapesjs-component-countdown';
+import pluginCustomCode from 'grapesjs-custom-code';
+import pluginMjml from 'grapesjs-mjml';
+import pluginNavbar from 'grapesjs-navbar';
+import pluginParserPostcss from 'grapesjs-parser-postcss';
+import pluginPresetWebpage from 'grapesjs-preset-webpage';
+import pluginStyleBg from 'grapesjs-style-bg';
+import pluginTooltip from 'grapesjs-tooltip';
+import pluginTuiImageEditor from 'grapesjs-tui-image-editor';
 type EditorType = any; // Replace 'any' with actual Editor Class/Type.
-type SenderType = any; // Replace 'any' with actual Sender Class/Type.
 
 onMounted(() => {
   const editor = grapesjs.init({
@@ -200,6 +209,12 @@ onMounted(() => {
     traitManager: {
       appendTo: '.traits-container',
     },
+    plugins: [
+      pluginBlocksBasic
+    ],
+    pluginsOpts: {
+      'grapesjs-blocks-basic': {},
+    }
   });
 
   editor.BlockManager.add('blocks', {

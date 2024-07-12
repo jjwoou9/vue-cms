@@ -28,21 +28,6 @@ onMounted(() => {
     container: '#gjs',
     height: '900px',
     width: '100%',
-    plugins: [
-      pluginBlocksBasic,
-      pluginComponentCountdown,
-      pluginCustomCode,
-      // pluginLorySlider,
-      pluginMjml,
-      pluginNavbar,
-      pluginParserPostcss,
-      pluginPresetWebpage,
-      pluginStyleBg,
-      // pluginTabs,
-      pluginTooltip,
-      pluginTuiImageEditor,
-      // 여기에 추가적인 GrapesJS 플러그인 초기화 코드를 작성합니다.
-    ],
     storageManager: false,
     deviceManager: {
       devices: [
@@ -65,6 +50,21 @@ onMounted(() => {
         },
       ]
     },
+    plugins: [
+      pluginBlocksBasic,
+      pluginComponentCountdown,
+      pluginCustomCode,
+      // pluginLorySlider,
+      pluginMjml,
+      pluginNavbar,
+      pluginParserPostcss,
+      pluginPresetWebpage,
+      pluginStyleBg,
+      // pluginTabs,
+      pluginTooltip,
+      pluginTuiImageEditor,
+      // 여기에 추가적인 GrapesJS 플러그인 초기화 코드를 작성합니다.
+    ],
     pluginsOpts: {
       'grapesjs-blocks-basic': {},
       'grapesjs-component-countdown': {},
