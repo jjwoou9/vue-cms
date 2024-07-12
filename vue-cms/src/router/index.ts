@@ -6,6 +6,7 @@ import Grapes from "../views/Grapes.vue";
 import Test from "../views/Test.vue";
 import Compose from "../views/Compose.vue";
 import Copilot from "../views/Copilot.vue";
+import DemoPage from "../views/DemoPage.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +35,11 @@ const router = createRouter({
             path: "/cop",
             name: "cop",
             component: Copilot
+        },
+        {
+            path: "/demo",
+            name: "demo",
+            component: DemoPage
         }
         // 다른 라우트 추가
     ]
